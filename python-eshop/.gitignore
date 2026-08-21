@@ -11,4 +11,3 @@ dist/
 # IDE
 .vscode/
 .idea/
-Created .gitignore file for flag type node.
