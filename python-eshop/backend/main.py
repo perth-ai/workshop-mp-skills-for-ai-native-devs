@@ -6,7 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from config import settings
-from db.seed import seed_database
+from db.ensure_assets import ensure_product_images
+from db.seed import seed_database, sync_picture_uris
 from dependencies import get_db, init_dependencies
 from routers import auth, basket, catalog, orders
 
@@ -15,7 +16,9 @@ from routers import auth, basket, catalog, orders
 async def lifespan(app: FastAPI):
     db_path = str(Path(__file__).parent / settings.database_path)
     init_dependencies(db_path)
+    ensure_product_images()
     seed_database(get_db())
+    sync_picture_uris(get_db())
     yield
 
 

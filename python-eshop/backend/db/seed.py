@@ -40,7 +40,7 @@ def seed_database(db: DatabaseClient) -> None:
             conn.execute("INSERT INTO catalog_types (type) VALUES (?)", (catalog_type,))
 
         for type_id, brand_id, name, description, price, image_num in PRODUCTS:
-            picture_uri = f"/static/images/products/{image_num}.svg"
+            picture_uri = f"/static/images/products/{image_num}.png"
             conn.execute(
                 """
                 INSERT INTO catalog_items (
@@ -55,4 +55,23 @@ def seed_database(db: DatabaseClient) -> None:
         conn.execute(
             "INSERT INTO users (email, password_hash) VALUES (?, ?)",
             (DEMO_EMAIL, password_hash),
+        )
+
+
+def sync_picture_uris(db: DatabaseClient) -> None:
+    """Update legacy .svg paths to .png after product images are added."""
+    with db._connection() as conn:
+        conn.execute(
+            """
+            UPDATE catalog_items
+            SET picture_uri = REPLACE(picture_uri, '.svg', '.png')
+            WHERE picture_uri LIKE '%.svg'
+            """
+        )
+        conn.execute(
+            """
+            UPDATE order_items
+            SET picture_uri = REPLACE(picture_uri, '.svg', '.png')
+            WHERE picture_uri LIKE '%.svg'
+            """
         )
