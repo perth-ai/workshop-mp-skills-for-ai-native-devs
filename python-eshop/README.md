@@ -1,6 +1,6 @@
-# eShopOnWeb — Python Tutorial Edition
+# eShopOnWeb — Python Edition
 
-A first-year-friendly Python rewrite of the eShopOnWeb storefront. It demonstrates a minimal clean architecture:
+A Vibe-coded Python rewrite of the eShopOnWeb storefront. Uses a clean architecture:
 
 **Router → Service → Database Client → SQLite**
 
@@ -29,6 +29,7 @@ python-eshop/
 
 - Python 3.11+ (tested with 3.14)
 - Node.js 18+
+- [uv](https://docs.astral.sh/uv/) — required for the backend
 
 ## Quick start
 
@@ -36,21 +37,21 @@ Open two terminals.
 
 ### 1. Backend
 
-```powershell
+```bash
 cd python-eshop/backend
-py -m pip install -r requirements.txt
-py run.py
+uv sync
+uv run python run.py
 ```
 
 - API: http://127.0.0.1:8765
 - Swagger docs: http://127.0.0.1:8765/docs
 - Static product images: http://127.0.0.1:8765/static/images/products/
 
-> **Note:** Do not use bare `uvicorn main:app --reload` — that defaults to port 8000, which may already be in use. Always use `py run.py`.
+> **Note:** Do not use bare `uvicorn main:app --reload` — that defaults to port 8000, which may already be in use. Always use `uv run python run.py`.
 
 ### 2. Frontend
 
-```powershell
+```bash
 cd python-eshop/frontend
 npm install
 npm run dev
@@ -89,17 +90,3 @@ The Vite dev server proxies `/api` and `/static` to the backend.
 | POST | `/api/orders` | JWT required |
 | GET | `/api/orders` | JWT required |
 | GET | `/api/orders/{id}` | JWT required |
-
-## Teaching notes
-
-- **Start with `routers/catalog.py`** — thinnest layer, easy to read
-- **Then `services/basket_service.py`** — shows business rules without SQL
-- **Then `db/client.py`** — all database access in one place
-- **No ORM** — SQL is explicit so students can see what the database does
-
-## Out of scope
-
-- Admin catalog CRUD (BlazorAdmin / PublicApi)
-- Real payment processing
-- Account management (2FA, password change)
-- Docker / Azure deployment
