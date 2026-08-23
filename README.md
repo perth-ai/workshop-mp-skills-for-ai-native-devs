@@ -1,46 +1,26 @@
-# Overview
-> Agent Note: this is a draft overview of the workshop - clean up and then remove this note
+# Skills for AI-Native Devs
+
+A Perth AI Club workshop on using structured skills — rather than unstructured prompting — to work productively and safely in an unfamiliar, AI-generated codebase.
 
 ## Scenario
 
-Our client had a legacy (C#) online store that they wrote a decade ago - they are not technical, they are commercial people. But they heard about vibe coding and they know a bit of Python so they vibe coded a modern Python alternative to their legacy shop. Unfortunately, the result, while it seemed okay initially is actually pretty buggy.
- 
-They have contracted you to fix the bugs - they are not willing to go back and rewrite from scratch because they already invested time in custom styling.
- 
-Your task is to help solve some of their bugs and set up workflows that will allow them to continue to use AI but with more guardrails and a better chance of success.
+Our client runs a legacy (C#) online store they built a decade ago. They're commercial people, not engineers — but they'd heard about vibe coding, knew a bit of Python, and used it to build a modern Python alternative to their legacy shop. It looked fine at first, but it's turned out to be pretty buggy.
 
+They won't rewrite from scratch — they've already invested in custom styling and don't want to lose it. They've brought us in to fix the bugs and to set up a workflow that lets them keep using AI, with more guardrails and a better chance of success.
+
+The buggy Python storefront lives in [`python-eshop/`](python-eshop/README.md).
 
 ## Workshop Overview
-> Agent Note: this is the general format from discussion rewrite to be more professional - do NOT add time estimates. Keep it brief.
 
-Warm up - what we know about AI coding, agents, and skills - general experience, feelings, concerns etc (use Particify)
+The session opens with a warm-up poll on the room's experience with AI coding, agents, and skills, followed by the scenario above. Attendees then discuss why they think the vibe coding went wrong and how they'd approach it — before we introduce Matt Pocock's skills for Claude Code, what they help with, and where the gaps still are.
 
-Introduce the scenario
+The practical component follows:
 
- Then we ask them why they think the vibe coding went wrong, how they would fix them. (more particify)
- 
-We then introduce matt Pocock skills and his approach - how it helps and where there are still gaps.
- 
-And then dive into the practical component
- 
-Step 1 - setting up the skills
- 
-Set up - discuss/write down (depending on time) what the set up skills did (making sure they are not just vibing)
+1. **Set up the skills** — install a small, focused shortlist rather than the full set, and understand what setup actually did.
+2. **Triage a bug** — pick a bug from the storefront and work it through a triage skill, with a discussion on harnesses and scaling.
+3. **Implement the fix** — build the fix and push it to a branch.
+4. **Discuss and reflect** — what the skills caught, where they got in the way, and what to change next time.
 
-Examine the TOML header of a couple of skills to explain that they run manually and the augmented nature of skills
+Attendees who finish early are encouraged to explore further skills and capabilities on their own.
 
-Slides will say that skills are progressively loaded and that context management is key
- 
-Step 2 - triage a bug
- 
-Discuss harnesses and scaling 
- 
-Step 3 - implement the bug fix and upload to a branch
- 
-Step 4 - discussing and reflection
- 
-My guess this is 2-3 hours min. With time after to explore other skills and capabilities (e.g. grillme, teach, wayfinder, etc...)
- 
-> Agent Note:
-Create a workshop folder with an MD file with more detailed steps
-Create an HTML presentation (clean, minimal with nice slide transitions) covering what we discussed here
+See the [workshop folder](workshop/README.md) for the detailed facilitator run sheet and [slides](workshop/presentation.html).
