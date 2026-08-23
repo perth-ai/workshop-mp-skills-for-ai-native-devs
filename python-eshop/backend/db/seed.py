@@ -20,7 +20,7 @@ PRODUCTS = [
     (2, 5, "Prism White TShirt", "Prism White TShirt", 12.0, 12),
 ]
 
-DEMO_EMAIL = "demouser@microsoft.com"
+DEMO_EMAIL = "demouser@perthai.com.au"
 DEMO_PASSWORD = "Pass@word1"
 
 

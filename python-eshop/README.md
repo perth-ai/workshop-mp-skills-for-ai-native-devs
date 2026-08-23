@@ -65,7 +65,7 @@ The Vite dev server proxies `/api` and `/static` to the backend.
 
 | Email | Password |
 |---|---|
-| `demouser@microsoft.com` | `Pass@word1` |
+| `demouser@perthai.com.au` | `Pass@word1` |
 
 ## Shopping flow
 

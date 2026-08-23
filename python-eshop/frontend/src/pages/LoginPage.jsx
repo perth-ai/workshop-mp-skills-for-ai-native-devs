@@ -6,7 +6,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
-  const [email, setEmail] = useState('demouser@microsoft.com');
+  const [email, setEmail] = useState('demouser@perthai.com.au');
   const [password, setPassword] = useState('Pass@word1');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function LoginPage() {
       <div className="card">
         <h1 className="text-2xl font-bold text-slate-900">Login</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Demo account: demouser@microsoft.com / Pass@word1
+          Demo account: demouser@perthai.com.au / Pass@word1
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
