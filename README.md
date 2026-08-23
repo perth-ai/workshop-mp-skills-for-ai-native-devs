@@ -1,105 +1,46 @@
-# eShopOnWeb — Python Tutorial Edition
+# Overview
+> Agent Note: this is a draft overview of the workshop - clean up and then remove this note
 
-A first-year-friendly Python rewrite of the eShopOnWeb storefront. It demonstrates a minimal clean architecture:
+## Scenario
 
-**Router → Service → Database Client → SQLite**
+Our client had a legacy (C#) online store that they wrote a decade ago - they are not technical, they are commercial people. But they heard about vibe coding and they know a bit of Python so they vibe coded a modern Python alternative to their legacy shop. Unfortunately, the result, while it seemed okay initially is actually pretty buggy.
+ 
+They have contracted you to fix the bugs - they are not willing to go back and rewrite from scratch because they already invested time in custom styling.
+ 
+Your task is to help solve some of their bugs and set up workflows that will allow them to continue to use AI but with more guardrails and a better chance of success.
 
-The React frontend talks to a FastAPI backend over JSON. Scope matches the original storefront: catalog, basket, auth, checkout, and orders — no admin, no payment gateway, no product detail page.
 
-## Architecture
+## Workshop Overview
+> Agent Note: this is the general format from discussion rewrite to be more professional - do NOT add time estimates. Keep it brief.
 
-```
-python-eshop/
-├── backend/
-│   ├── routers/      # HTTP layer (FastAPI APIRouter)
-│   ├── services/     # Business logic
-│   ├── db/           # DatabaseClient + schema + seed
-│   └── models/       # Pydantic schemas + dataclasses
-└── frontend/         # Vite + React + Tailwind SPA
-```
+Warm up - what we know about AI coding, agents, and skills - general experience, feelings, concerns etc (use Particify)
 
-| Python layer | Original C# project | Responsibility |
-|---|---|---|
-| `routers/` | `Web/` pages & controllers | HTTP, validation, auth headers |
-| `services/` | `ApplicationCore/` | Basket merge, checkout rules |
-| `db/client.py` | `Infrastructure/` | All SQL queries |
-| SQLite file | SQL Server CatalogDb | Persistent storage |
+Introduce the scenario
 
-## Prerequisites
+ Then we ask them why they think the vibe coding went wrong, how they would fix them. (more particify)
+ 
+We then introduce matt Pocock skills and his approach - how it helps and where there are still gaps.
+ 
+And then dive into the practical component
+ 
+Step 1 - setting up the skills
+ 
+Set up - discuss/write down (depending on time) what the set up skills did (making sure they are not just vibing)
 
-- Python 3.11+ (tested with 3.14)
-- Node.js 18+
+Examine the TOML header of a couple of skills to explain that they run manually and the augmented nature of skills
 
-## Quick start
-
-Open two terminals.
-
-### 1. Backend
-
-```powershell
-cd python-eshop/backend
-py -m pip install -r requirements.txt
-py run.py
-```
-
-- API: http://127.0.0.1:8765
-- Swagger docs: http://127.0.0.1:8765/docs
-- Static product images: http://127.0.0.1:8765/static/images/products/
-
-> **Note:** Do not use bare `uvicorn main:app --reload` — that defaults to port 8000, which may already be in use. Always use `py run.py`.
-
-### 2. Frontend
-
-```powershell
-cd python-eshop/frontend
-npm install
-npm run dev
-```
-
-- App: http://127.0.0.1:4321
-
-The Vite dev server proxies `/api` and `/static` to the backend.
-
-## Demo account
-
-| Email | Password |
-|---|---|
-| `demouser@microsoft.com` | `Pass@word1` |
-
-## Shopping flow
-
-1. Browse the catalog — filter by brand/type, paginate (10 items per page)
-2. Add items to basket — works anonymously via `X-Basket-Id` stored in `localStorage`
-3. Login or register — anonymous basket merges into your account
-4. Checkout — review order, click **Pay now** (uses a hardcoded shipping address like the original)
-5. View orders — **My Orders** in the header
-
-## API overview
-
-| Method | Route | Auth |
-|---|---|---|
-| GET | `/api/catalog/items` | Public |
-| GET | `/api/catalog/brands` | Public |
-| GET | `/api/catalog/types` | Public |
-| GET | `/api/basket` | JWT or `X-Basket-Id` |
-| POST | `/api/basket/items` | JWT or `X-Basket-Id` |
-| PUT | `/api/basket/items` | JWT or `X-Basket-Id` |
-| POST | `/api/auth/register` | Public |
-| POST | `/api/auth/login` | Public |
-| POST | `/api/orders` | JWT required |
-| GET | `/api/orders` | JWT required |
-| GET | `/api/orders/{id}` | JWT required |
-
-## Teaching notes
-
-- **Start with `routers/catalog.py`** — thinnest layer, easy to read
-- **Then `services/basket_service.py`** — shows business rules without SQL
-- **Then `db/client.py`** — all database access in one place
-- **No ORM** — SQL is explicit so students can see what the database does
-
-## Out of scope
-
-- Admin catalog CRUD (BlazorAdmin / PublicApi)
-- Real payment processing
-- Account management (2FA, password change)
-- Docker / Azure deployment
+Slides will say that skills are progressively loaded and that context management is key
+ 
+Step 2 - triage a bug
+ 
+Discuss harnesses and scaling 
+ 
+Step 3 - implement the bug fix and upload to a branch
+ 
+Step 4 - discussing and reflection
+ 
+My guess this is 2-3 hours min. With time after to explore other skills and capabilities (e.g. grillme, teach, wayfinder, etc...)
+ 
+> Agent Note:
+Create a workshop folder with an MD file with more detailed steps
+Create an HTML presentation (clean, minimal with nice slide transitions) covering what we discussed here
