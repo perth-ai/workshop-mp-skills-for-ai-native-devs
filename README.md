@@ -1,105 +1,26 @@
-# eShopOnWeb — Python Tutorial Edition
+# Skills for AI-Native Devs
 
-A first-year-friendly Python rewrite of the eShopOnWeb storefront. It demonstrates a minimal clean architecture:
+A Perth AI Club workshop on using structured skills — rather than unstructured prompting — to work productively and safely in an unfamiliar, AI-generated codebase.
 
-**Router → Service → Database Client → SQLite**
+## Scenario
 
-The React frontend talks to a FastAPI backend over JSON. Scope matches the original storefront: catalog, basket, auth, checkout, and orders — no admin, no payment gateway, no product detail page.
+Our client runs a legacy (C#) online store they built a decade ago. They're commercial people, not engineers — but they'd heard about vibe coding, knew a bit of Python, and used it to build a modern Python alternative to their legacy shop. It looked fine at first, but it's turned out to be pretty buggy.
 
-## Architecture
+They won't rewrite from scratch — they've already invested in custom styling and don't want to lose it. They've brought us in to fix the bugs and to set up a workflow that lets them keep using AI, with more guardrails and a better chance of success.
 
-```
-python-eshop/
-├── backend/
-│   ├── routers/      # HTTP layer (FastAPI APIRouter)
-│   ├── services/     # Business logic
-│   ├── db/           # DatabaseClient + schema + seed
-│   └── models/       # Pydantic schemas + dataclasses
-└── frontend/         # Vite + React + Tailwind SPA
-```
+The buggy Python storefront lives in [`python-eshop/`](python-eshop/README.md).
 
-| Python layer | Original C# project | Responsibility |
-|---|---|---|
-| `routers/` | `Web/` pages & controllers | HTTP, validation, auth headers |
-| `services/` | `ApplicationCore/` | Basket merge, checkout rules |
-| `db/client.py` | `Infrastructure/` | All SQL queries |
-| SQLite file | SQL Server CatalogDb | Persistent storage |
+## Workshop Overview
 
-## Prerequisites
+The session opens with a warm-up poll on the room's experience with AI coding, agents, and skills, followed by the scenario above. Attendees then discuss why they think the vibe coding went wrong and how they'd approach it — before we introduce Matt Pocock's skills for Claude Code, what they help with, and where the gaps still are.
 
-- Python 3.11+ (tested with 3.14)
-- Node.js 18+
+The practical component follows:
 
-## Quick start
+1. **Set up the skills** — install a small, focused shortlist rather than the full set, and understand what setup actually did.
+2. **Triage a bug** — pick a bug from the storefront and work it through a triage skill, with a discussion on harnesses and scaling.
+3. **Implement the fix** — build the fix and push it to a branch.
+4. **Discuss and reflect** — what the skills caught, where they got in the way, and what to change next time.
 
-Open two terminals.
+Attendees who finish early are encouraged to explore further skills and capabilities on their own.
 
-### 1. Backend
-
-```powershell
-cd python-eshop/backend
-py -m pip install -r requirements.txt
-py run.py
-```
-
-- API: http://127.0.0.1:8765
-- Swagger docs: http://127.0.0.1:8765/docs
-- Static product images: http://127.0.0.1:8765/static/images/products/
-
-> **Note:** Do not use bare `uvicorn main:app --reload` — that defaults to port 8000, which may already be in use. Always use `py run.py`.
-
-### 2. Frontend
-
-```powershell
-cd python-eshop/frontend
-npm install
-npm run dev
-```
-
-- App: http://127.0.0.1:4321
-
-The Vite dev server proxies `/api` and `/static` to the backend.
-
-## Demo account
-
-| Email | Password |
-|---|---|
-| `demouser@microsoft.com` | `Pass@word1` |
-
-## Shopping flow
-
-1. Browse the catalog — filter by brand/type, paginate (10 items per page)
-2. Add items to basket — works anonymously via `X-Basket-Id` stored in `localStorage`
-3. Login or register — anonymous basket merges into your account
-4. Checkout — review order, click **Pay now** (uses a hardcoded shipping address like the original)
-5. View orders — **My Orders** in the header
-
-## API overview
-
-| Method | Route | Auth |
-|---|---|---|
-| GET | `/api/catalog/items` | Public |
-| GET | `/api/catalog/brands` | Public |
-| GET | `/api/catalog/types` | Public |
-| GET | `/api/basket` | JWT or `X-Basket-Id` |
-| POST | `/api/basket/items` | JWT or `X-Basket-Id` |
-| PUT | `/api/basket/items` | JWT or `X-Basket-Id` |
-| POST | `/api/auth/register` | Public |
-| POST | `/api/auth/login` | Public |
-| POST | `/api/orders` | JWT required |
-| GET | `/api/orders` | JWT required |
-| GET | `/api/orders/{id}` | JWT required |
-
-## Teaching notes
-
-- **Start with `routers/catalog.py`** — thinnest layer, easy to read
-- **Then `services/basket_service.py`** — shows business rules without SQL
-- **Then `db/client.py`** — all database access in one place
-- **No ORM** — SQL is explicit so students can see what the database does
-
-## Out of scope
-
-- Admin catalog CRUD (BlazorAdmin / PublicApi)
-- Real payment processing
-- Account management (2FA, password change)
-- Docker / Azure deployment
+See the [workshop folder](workshop/README.md) for the detailed facilitator run sheet and [slides](workshop/presentation.html).
