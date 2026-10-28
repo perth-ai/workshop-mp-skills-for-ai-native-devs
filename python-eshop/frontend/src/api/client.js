@@ -99,6 +99,12 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
 
+  getFavouriteIds: () => request('/api/favourites/ids'),
+  saveFavourite: (catalogItemId) =>
+    request(`/api/favourites/${catalogItemId}`, { method: 'PUT' }),
+  removeFavourite: (catalogItemId) =>
+    request(`/api/favourites/${catalogItemId}`, { method: 'DELETE' }),
+
   createOrder: (basketId) =>
     request('/api/orders', {
       method: 'POST',

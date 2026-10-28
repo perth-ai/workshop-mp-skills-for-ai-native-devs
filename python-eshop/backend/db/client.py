@@ -1,6 +1,6 @@
 import sqlite3
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from models.entities import (
@@ -304,6 +304,31 @@ class DatabaseClient:
             if not row:
                 return None
             return self._load_order(conn, row)
+
+    def save_favourite(self, user_email: str, catalog_item_id: int) -> None:
+        with self._connection() as conn:
+            conn.execute(
+                """
+                INSERT OR IGNORE INTO favourites (user_email, catalog_item_id, saved_at)
+                VALUES (?, ?, ?)
+                """,
+                (user_email, catalog_item_id, datetime.now(timezone.utc).isoformat()),
+            )
+
+    def remove_favourite(self, user_email: str, catalog_item_id: int) -> None:
+        with self._connection() as conn:
+            conn.execute(
+                "DELETE FROM favourites WHERE user_email = ? AND catalog_item_id = ?",
+                (user_email, catalog_item_id),
+            )
+
+    def list_favourite_ids(self, user_email: str) -> list[int]:
+        with self._connection() as conn:
+            rows = conn.execute(
+                "SELECT catalog_item_id FROM favourites WHERE user_email = ? ORDER BY id",
+                (user_email,),
+            ).fetchall()
+            return [row["catalog_item_id"] for row in rows]
 
     def has_catalog_data(self) -> bool:
         with self._connection() as conn:
