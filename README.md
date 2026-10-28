@@ -8,6 +8,10 @@ This branch, `mash/part-2-new-features`, is the starting point for Part 2 of the
 
 In Part 1 you were handed a buggy, vibe-coded online store and triaged it. Those bugs are now fixed, with tests. The client is happy, and now they want new features. Your job is to build one properly: grill the idea, write a spec, break it into tickets, implement it test-first, and get it reviewed and merged.
 
+See [`docs/architecture.md`](docs/architecture.md) for the complete Shopper journey plus high-level software, low-level Favourites, runtime/hardware, and data-flow diagrams.
+
+See [`docs/enterprise-readiness.md`](docs/enterprise-readiness.md) for implemented platform controls, their limits, and the ranked standards-backed roadmap toward a production enterprise system.
+
 ## Get your own copy
 
 1. Click **Use this template** → **Create a new repository** at the top of this page, and tick **Include all branches**.
@@ -37,6 +41,18 @@ Open http://127.0.0.1:4321 and sign in with `demouser@perthai.com.au` / `Pass@wo
 ```bash
 cd python-eshop/backend && uv run pytest
 ```
+
+On Windows, run the complete workshop guardrail from the repository root:
+
+```powershell
+pwsh -File .\scripts\Verify-Workshop.ps1
+```
+
+It discovers WinGet and workshop-local tools even when the current shell's PATH is stale, verifies the Matt Pocock plugin and setup-skill installation, runs every backend and frontend quality gate, audits both Python dependency manifests plus npm, and checks the running shop through its API and frontend proxy. Runtime checks include database readiness, browser anti-framing headers, every catalog page and product image, login, and the Favourites route. If the workshop Vite server owns port 4321, the script restores it even after a failed gate; it refuses to stop unrelated processes.
+
+Use `-CheckSkillInvocation` to launch a fresh read-only Codex process and prove that `$setup-matt-pocock-skills` is actually callable, rather than merely installed. This stricter diagnostic fails when Codex's plugin loader does not expose the skill.
+
+GitHub Actions repeats the same tests on Windows and Ubuntu for pushes, pull requests, manual runs, and a weekly drift check. Dependabot proposes weekly npm, uv, and Actions updates. Updates remain pull requests: review and green gates are required rather than blind auto-merge or self-modifying production.
 
 ## What's here for the review step
 
