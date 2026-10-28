@@ -4,7 +4,7 @@ A Vibe-coded Python rewrite of the eShopOnWeb storefront. Uses a clean architect
 
 **Router → Service → Database Client → SQLite**
 
-The React frontend talks to a FastAPI backend over JSON. Scope matches the original storefront: catalog, basket, auth, checkout, and orders — no admin, no payment gateway, no product detail page.
+The React frontend talks to a FastAPI backend over JSON. Scope matches the original storefront: catalog, basket, auth, checkout, and orders, plus favourites — no admin, no payment gateway, no product detail page.
 
 ## Architecture
 
@@ -90,3 +90,6 @@ The Vite dev server proxies `/api` and `/static` to the backend.
 | POST | `/api/orders` | JWT required |
 | GET | `/api/orders` | JWT required |
 | GET | `/api/orders/{id}` | JWT required |
+| GET | `/api/favourites/ids` | JWT required |
+| PUT | `/api/favourites/{catalog_item_id}` | JWT required |
+| DELETE | `/api/favourites/{catalog_item_id}` | JWT required |
